@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/EmployeeDetails" />
+
+        <property name="user" value="pushpa" />
+
+        <property name="password" value="pushpa1992" />
+        
+        <property name="maxPoolSize" value="50" />
+        
+        <property name="minPoolSize" value="20" />
+
+        <property name="maxStatements" value="100" />
+
+        <property name="testConnectionOnCheckout" value="true" />
+
+	</bean>
+	
+	<bean id="userDaoImpl" class="com.bridgeit.dao.UserDaoImpl">
+	 <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	
+	<bean id="userServiceImpl" class="com.bridgeit.service.UserServiceImpl"></bean> 
+ 	
+	 <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+			<constructor-arg ref="dataSource"/>
+	</bean> 
+	
+	
+	</beans>
+	
